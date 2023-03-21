@@ -36,8 +36,6 @@ func HttpGet(url string, httpHead map[string]string) (string, error) {
 	}
 	// Print response content and status code
 	result := string(body)
-	fmt.Println(result)
-	fmt.Println(response.StatusCode)
 	return result, nil
 }
 
@@ -68,7 +66,5 @@ func HttpPost(url string, requestBody string, httpHead map[string]string) (strin
 	}
 	// Print response content and status code
 	result := string(body)
-	fmt.Println(result)
-	fmt.Println(response.StatusCode)
 	return result, nil
 }

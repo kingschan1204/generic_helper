@@ -23,10 +23,10 @@ func GetByExp(jsonData string, expression string) (bool, interface{}) {
 	var exits = false
 	for i := 0; i < len(exps); i++ {
 		if i == 0 {
-			exits, result = Get(v, exps[i])
+			exits, result = get(v, exps[i])
 		} else {
 			if exits {
-				exits, result = Get(result, exps[i])
+				exits, result = get(result, exps[i])
 			}
 		}
 		if result == nil || !exits {
@@ -36,7 +36,7 @@ func GetByExp(jsonData string, expression string) (bool, interface{}) {
 	return exits, result
 }
 
-func Get(data interface{}, exp string) (bool, interface{}) {
+func get(data interface{}, exp string) (bool, interface{}) {
 	switch v := data.(type) {
 	case []interface{}:
 		index, _ := strconv.Atoi(exp)
