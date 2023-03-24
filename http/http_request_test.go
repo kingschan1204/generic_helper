@@ -10,5 +10,5 @@ func TestHttpGet(t *testing.T) {
 	if err != nil {
 		t.Errorf("execute error : %v", err)
 	}
-	t.Logf("return data : %s", result)
+	t.Logf("return data : %s", string(result))
 }

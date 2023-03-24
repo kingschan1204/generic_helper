@@ -8,13 +8,13 @@ import (
 )
 
 // HttpGet send a http request to get data
-func HttpGet(url string, httpHead map[string]string) (string, error) {
+func HttpGet(url string, httpHead map[string]string) ([]byte, error) {
 	// Create a custom request object
 	request, err := http.NewRequest("GET", url, nil)
 	// 检查错误
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
 	// set http head attribute
 	for k, v := range httpHead {
@@ -24,7 +24,7 @@ func HttpGet(url string, httpHead map[string]string) (string, error) {
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
 	// Close the connection after reading the response
 	defer response.Body.Close()
@@ -32,22 +32,20 @@ func HttpGet(url string, httpHead map[string]string) (string, error) {
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
-	// Print response content and status code
-	result := string(body)
-	return result, nil
+	return body, nil
 }
 
 // HttpPost send a http request to get data
 // requestBody : `{"name":"xxx","message":"xxx"}`
-func HttpPost(url string, requestBody string, httpHead map[string]string) (string, error) {
+func HttpPost(url string, requestBody string, httpHead map[string]string) ([]byte, error) {
 	// Declare a JSON data variable
 	data := []byte(requestBody)
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
 	// set http head attribute
 	for k, v := range httpHead {
@@ -56,15 +54,13 @@ func HttpPost(url string, requestBody string, httpHead map[string]string) (strin
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return nil, err
 	}
-	// Print response content and status code
-	result := string(body)
-	return result, nil
+	return body, nil
 }
